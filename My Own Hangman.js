@@ -27,9 +27,18 @@ $(document).ready(function() {
     printLines();
     guesses = 0;
     $(".btn").text("I give up. Give me a new word.");
-    $(".error-message").text("Let's play!")
-
-    $("#bacon").slideDown();
+    $(".error-message").text("Let's play!");
+    $(".hill").hide();
+    $(".first-stick").hide();
+    $(".second-stick").hide();
+    $(".small-stick").hide();
+    $(".cord").hide();
+    $(".head").hide();
+    $(".body").hide();
+    $(".right-arm").hide();
+    $(".left-arm").hide();
+    $(".right-leg").hide();
+    $(".left-leg").hide();
 
   };
   initializeGame();
@@ -62,19 +71,26 @@ var findLetterPosition = function() {
     guesses++;
     $(".error-message").text("Wrong guess :(");
     console.log("wrong guesses are" + guesses);
+      showHangmanBits();
   }
 };
 
+var hangmanBits = ["hill", "first-stick", "second-stick", "small-stick", "cord", "head", "body", "right-arm", "left-arm", "right-leg", "left-leg"];
+var showHangmanBits = function() {
+    $("." + hangmanBits[guesses-1]).show();
+};
+
 var checkWin = function () {
-  if (guesses < 10 && lines.join("") === randomWord) {
+  if (guesses < 12 && lines.join("") === randomWord) {
     $(".error-message").text("Victory!");
     $(".error-message").css("font-size", "50px");
     $(".error-message").css("color", "#006600");
     $(".btn").text("Play again!");
-  } else if (guesses > 9) {
+  } else if (guesses > 11) {
     //console.log(guesses);
     $(".error-message").text("Game Over");
     $(".error-message").css("font-size", "50px");
+    //$("#hangman-image").show();
     lines = randomWord.split("");
     printLines();
     $(".btn").text("Play again!");
@@ -82,7 +98,7 @@ var checkWin = function () {
 };
 
 /*
-Make it rain bacon
+Make it rain bacon!!
 */
 
 });
