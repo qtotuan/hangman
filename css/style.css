@@ -7,7 +7,8 @@ body {
   color: #ff0000;
   text-align: center;
   width: 100%;
-  margin-bottom: 50px;
+  margin: 50px auto;
+  height: 50px;
 }
 
 form {
@@ -28,5 +29,5 @@ form {
 
 #guessed-letter {
   margin: 30px auto;
-  width: auto;
+  width: 40px;
 }

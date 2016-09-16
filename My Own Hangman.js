@@ -28,6 +28,9 @@ $(document).ready(function() {
     guesses = 0;
     $(".btn").text("I give up. Give me a new word.");
     $(".error-message").text("Let's play!")
+
+    $("#bacon").slideDown();
+
   };
   initializeGame();
 
@@ -37,14 +40,10 @@ $(document).ready(function() {
 
   //When user clicks submit, store value in variable
   $("#form").submit(function(event) {
-    userGuess = $("#guessed-letter").val();
+    userGuess = $("#guessed-letter").val().toLowerCase();
     event.preventDefault();
-    if (userGuess.length > 1) {
-      $(".error-message").text("Only one letter, funny guy!");
-    } else {
       findLetterPosition();
       $("#guessed-letter").val("");
-    }
     checkWin();
   });
 
@@ -76,18 +75,14 @@ var checkWin = function () {
     //console.log(guesses);
     $(".error-message").text("Game Over");
     $(".error-message").css("font-size", "50px");
+    lines = randomWord.split("");
+    printLines();
+    $(".btn").text("Play again!");
   }
 };
 
 /*
-Guess a letter
-Check if letter is in word
-Right guess: Place letter in correct spot
-Wrong guess: Incremement hangman by one
-
-Checkwin:
-Victory: If hangman < 10 and all letters correct
-Loss: If hangman > 10
+Make it rain bacon
 */
 
 });

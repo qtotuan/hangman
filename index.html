@@ -9,12 +9,14 @@
   <title>My Own Hangman</title>
   <body>
 
+    <img src="https://d15mj6e6qmt1na.cloudfront.net/files/images/1755/0206/bacon.jpg" alt="bacon" height="50px" id="bacon"></img>
+
   <div class=error-message>Let's start to play!</div>
 
-  <form id="form">
+  <form id="form" autocomplete="off">
     <div class="form-group">
       <label for="guessed-letter">Guess a letter: </label>
-      <input type="text" class="form-control" id="guessed-letter" placeholder="Type in one letter">
+      <input type="text" class="form-control" maxlength="1" id="guessed-letter">
       <input type="submit" value="submit">
     </div>
 
