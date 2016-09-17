@@ -11,12 +11,17 @@ $(document).ready(function() {
   var guesses = 0;
   var lines = [];
   var guessIsCorrect = false;
+  var gameIsOver = false;
+  var guessedLetters = [];
+  console.log(typeof guessedLetters[0]);
 
   var printLines = function() {
     $(".lines").text(lines.join(" "));
   };
 
   var initializeGame  = function() {
+    guessedLetters = [];
+    gameIsOver = false;
     randomNumber = Math.floor(Math.random() * wordsList.length);
     randomWord = wordsList[randomNumber];
     hangmanWord = randomWord.split("");
@@ -50,12 +55,33 @@ $(document).ready(function() {
   //When user clicks submit, store value in variable
   $("#form").submit(function(event) {
     userGuess = $("#guessed-letter").val().toLowerCase();
+    guessedLetters.push(userGuess);
     event.preventDefault();
       findLetterPosition();
       $("#guessed-letter").val("");
-    checkWin();
+      checkWin();
   });
 
+
+//Check validity of user entry
+var checkLetterAlreadyGuessed = function() {
+  if (typeof guessedLetters[0] !== null) {
+    console.log("I am in here");
+    for (var i = 0; i < guessedLetters.length; i++) {
+      if (userGuess === guessedLetters[i]) {
+        return true;
+      }
+    }
+  }
+};
+
+var checkIfNotEmpty = function() {
+  if (userGuess === "") {
+    return false;
+  }
+};
+
+//Find the position of the user guess in the hangman word
 var findLetterPosition = function() {
   guessIsCorrect = false;
   for (var i = 0; i < hangmanWord.length; i++){
@@ -67,7 +93,7 @@ var findLetterPosition = function() {
     printLines();
     console.log(guessIsCorrect);
   }
-  if (!guessIsCorrect) {
+  if (!guessIsCorrect && !gameIsOver) {
     guesses++;
     $(".error-message").text("Wrong guess :(");
     console.log("wrong guesses are" + guesses);
@@ -82,11 +108,12 @@ var showHangmanBits = function() {
 
 var checkWin = function () {
   if (guesses < 12 && lines.join("") === randomWord) {
+    gameIsOver = true;
     $(".error-message").text("Victory!");
     $(".error-message").css("font-size", "50px");
     $(".error-message").css("color", "#006600");
     $(".btn").text("Play again!");
-  } else if (guesses > 11) {
+  } else if (guesses > 10) {
     //console.log(guesses);
     $(".error-message").text("Game Over");
     $(".error-message").css("font-size", "50px");
@@ -98,7 +125,14 @@ var checkWin = function () {
 };
 
 /*
-Make it rain bacon!!
+Style:
+Wrong guess is green after playing one time Victory
+Game Over should turn red
+Hangman should be displayed next to letters, hard to see at the bottom
+
+Check if Valid:
+Display error when the same letter has been guessed
+Hangman bits show when an empty field is entered
 */
 
 });
